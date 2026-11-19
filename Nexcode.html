@@ -1,0 +1,1240 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexcode - Event Management</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 75px;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    color: #000001;
+    background: white;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button, input, select, textarea {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+:root {
+    --gold: #ee8700;
+    --dark: #202b3b;
+    --cream: #ffffff;
+}
+
+/* Navigation */
+header {
+    background: rgb(255, 255, 255);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px #0001;
+}
+
+nav {
+    max-width: 1100px;
+    margin: auto;
+    padding: 13px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: var(--gold);
+}
+
+.nav-links {
+    display: flex;
+    gap: 22px;
+    align-items: center;
+}
+
+.nav-links a {
+    font-size: 13px;
+}
+
+.nav-links a:hover {
+    color: var(--gold);
+}
+
+.btn {
+    background: var(--gold);
+    color: rgb(10, 8, 8);
+    padding: 11px 20px;
+    border: none;
+    border-radius: 5px;
+    display: inline-block;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background: #c88616;
+}
+
+.menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 25px;
+}
+
+/* Hero */
+.hero {
+    background:
+        linear-gradient(90deg, #000b, #0005),
+        url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6ExwXqMoZIjd2gyycP68-lHcvizPj71K_xDiJmxnw09E2obOAw6JgVjRz&s=10");
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 55px 20px;
+}
+
+.hero-content {
+    max-width: 1100px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+}
+
+.hero-text {
+    max-width: 580px;
+}
+
+.small-title {
+    color: var(--gold);
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.hero h1 {
+    font-size: clamp(36px, 5vw, 55px);
+    line-height: 1.15;
+    margin: 15px 0;
+}
+
+.hero h1 span {
+    color: var(--gold);
+}
+
+.hero-text p {
+    color: #eee;
+    line-height: 1.7;
+    margin-bottom: 22px;
+}
+
+.outline-btn {
+    display: inline-block;
+    border: 1px solid white;
+    padding: 10px 18px;
+    border-radius: 5px;
+    margin-left: 8px;
+}
+
+/* Booking form */
+
+.booking {
+    width: 300px;
+    min-width: 260px;
+    background: white;
+    color: var(--dark);
+    padding: 20px;
+    border-radius: 9px;
+    box-shadow: 0 5px 20px #0003;
+}
+
+.booking h3 {
+    margin-bottom: 15px;
+}
+
+.booking input,
+.booking select {
+    width: 100%;
+    padding: 11px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 13px;
+    background: white;
+    color: #333;
+}
+
+.booking button {
+    width: 100%;
+}
+
+/* Common sections */
+.section {
+    padding: 45px 20px;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.section-title h2 {
+    font-size: 27px;
+    margin: 7px 0;
+}
+
+.section-title p {
+    color: #777;
+    font-size: 14px;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+}
+/* Event categories */
+.event-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+}
+
+.card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 3px 12px #0001;
+    border: 1px solid #eee;
+}
+
+.card img {
+    width: 100%;
+    height: 145px;
+    object-fit: cover;
+    display: block;
+}
+
+.card-content {
+    padding: 12px;
+}
+
+.card h3 {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.card p {
+    color: #777;
+    font-size: 13px;
+}
+
+.card a {
+    display: inline-block;
+    color: #c88a1e;
+    font-size: 13px;
+    margin-top: 10px;
+}
+
+
+/* Tech event category cards */
+.category-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+.category-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 9px 22px #00000014;
+}
+.category-card .card-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 16px;
+}
+.category-card .category-tag {
+    display: inline-block;
+    align-self: flex-start;
+    background: #fff1dc;
+    color: #a85e00;
+    border-radius: 20px;
+    padding: 5px 9px;
+    font-size: 11px;
+    font-weight: bold;
+    margin-bottom: 9px;
+}
+.category-card ul {
+    list-style: none;
+    margin: 11px 0;
+    flex: 1;
+}
+.category-card li {
+    color: #596273;
+    font-size: 12px;
+    line-height: 1.5;
+    margin: 5px 0;
+}
+.category-card li::before {
+    color: #d47a00;
+    font-weight: bold;
+    margin-right: 7px;
+}
+.category-card .category-price {
+    font-size: 12px;
+    font-weight: bold;
+    color: #202b3b;
+    margin-top: 8px;
+}
+.category-card .category-price strong {
+    color: #c87800;
+    font-size: 18px;
+}
+.category-card .category-link {
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+}
+@media (max-width: 900px) {
+    .event-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 560px) {
+    .event-grid { grid-template-columns: 1fr; }
+}
+
+/* About */
+.about {
+    background: #fffaf5;
+}
+
+.about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.about-content img {
+    width: 100%;
+    height: 270px;
+    object-fit: cover;
+    border-radius: 7px;
+}
+
+.about-content h2 {
+    font-size: 30px;
+    margin: 10px 0;
+}
+
+.about-content p {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.8;
+}
+
+.stats {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.stats strong {
+    display: block;
+    color: #ce8a16;
+    font-size: 22px;
+}
+
+.stats small {
+    color: #777;
+}
+
+/* Why choose us */
+.features {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    text-align: center;
+}
+
+.feature-icon {
+    font-size: 30px;
+    color: var(--gold);
+}
+
+.features h3 {
+    font-size: 15px;
+    margin: 8px 0;
+}
+
+.features p {
+    color: #777;
+    font-size: 13px;
+}
+
+/* Testimonials */
+.testimonials {
+    background: var(--dark);
+    color: white;
+}
+
+.testimonials .section-title p {
+    color: #ddd;
+}
+
+.review-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.review {
+    padding: 20px;
+    border: 1px solid #ffffff35;
+    border-radius: 7px;
+    background: #ffffff08;
+}
+
+.review p {
+    color: #eee;
+    font-size: 14px;
+    font-style: italic;
+}
+
+.review h4 {
+    margin-top: 12px;
+    color: #ffc04d;
+    font-size: 13px;
+}
+
+/* Contact */
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr 1fr;
+    gap: 25px;
+    align-items: start;
+}
+
+.contact-info p {
+    margin: 14px 0;
+    font-size: 13px;
+    color: #555;
+}
+
+.contact-form {
+    display: grid;
+    gap: 10px;
+}
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 13px;
+}
+
+.contact-form textarea {
+    height: 90px;
+    resize: vertical;
+}
+
+.map {
+    background: #e7f1e6;
+    height: 220px;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 15px;
+}
+
+.map span {
+    font-size: 40px;
+}
+
+.map p {
+    margin-top: 8px;
+    font-weight: bold;
+}
+
+.map small {
+    color: #666;
+}
+
+/* Footer */
+footer {
+    background: var(--dark);
+    color: white;
+    text-align: center;
+    padding: 22px;
+}
+
+footer p {
+    color: #ccc;
+    font-size: 12px;
+    margin-top: 8px;
+}
+
+footer a {
+    color: var(--gold);
+}
+
+
+/* ================= ADMIN DASHBOARD ================= */
+#adminDashboard { display:none; min-height:100vh; background:#f5f7fb; padding:28px 20px 45px; }
+body.admin-mode > header,
+body.admin-mode > section:not(#adminDashboard),
+body.admin-mode > footer { display:none !important; }
+body.admin-mode #adminDashboard { display:block; }
+.admin-wrap { max-width:1200px; margin:auto; }
+.admin-top { display:flex; justify-content:space-between; align-items:center; gap:15px; margin-bottom:25px; }
+.admin-brand { font-size:24px; font-weight:bold; color:var(--dark); }
+.admin-brand span { color:var(--gold); }
+.admin-top-actions { display:flex; gap:10px; flex-wrap:wrap; }
+.admin-btn { border:0; border-radius:6px; background:var(--gold); color:white; padding:10px 15px; font-weight:bold; cursor:pointer; }
+.admin-btn.secondary { background:white; color:var(--dark); border:1px solid #ddd; }
+.admin-heading { margin-bottom:22px; }
+.admin-heading h1 { color:var(--dark); font-size:28px; margin-bottom:6px; }
+.admin-heading p { color:#718096; font-size:14px; }
+.admin-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:15px; margin-bottom:20px; }
+.admin-stat, .admin-panel { background:white; border:1px solid #e8edf2; border-radius:10px; padding:18px; box-shadow:0 3px 12px #00000008; }
+.admin-stat span { color:#718096; font-size:13px; }
+.admin-stat strong { display:block; color:var(--dark); font-size:28px; margin-top:10px; }
+.admin-grid { display:grid; grid-template-columns:1.6fr 1fr; gap:18px; margin-bottom:20px; }
+.admin-panel h2 { font-size:17px; color:var(--dark); margin-bottom:15px; }
+.admin-tools { display:flex; gap:10px; margin-bottom:14px; flex-wrap:wrap; }
+.admin-tools input, .admin-tools select { padding:10px; border:1px solid #ddd; border-radius:5px; min-width:160px; }
+.admin-table-wrap { overflow-x:auto; }
+.admin-table { width:100%; border-collapse:collapse; min-width:650px; }
+.admin-table th, .admin-table td { padding:12px 9px; border-bottom:1px solid #edf0f4; text-align:left; font-size:13px; }
+.admin-table th { color:#718096; font-size:11px; letter-spacing:.5px; }
+.admin-table td { color:#425166; }
+.admin-table select { padding:6px; border:1px solid #ddd; border-radius:5px; }
+.admin-status { display:inline-block; padding:5px 9px; border-radius:20px; font-size:11px; font-weight:bold; }
+.admin-status.Pending { color:#9b6900; background:#fff2d5; }
+.admin-status.Confirmed { color:#218354; background:#e4f7ed; }
+.admin-status.Cancelled { color:#bd4545; background:#ffe8e8; }
+.admin-activity { color:#667487; font-size:13px; line-height:1.7; }
+.admin-empty { color:#8792a1; padding:18px 5px; font-size:13px; }
+.admin-note { color:#8792a1; font-size:12px; line-height:1.5; margin-top:12px; }
+@media(max-width:850px) {
+ .admin-stats { grid-template-columns:repeat(2,1fr); }
+ .admin-grid { grid-template-columns:1fr; }
+}
+@media(max-width:520px) {
+ #adminDashboard { padding:18px 12px 30px; }
+ .admin-top { align-items:flex-start; flex-direction:column; }
+ .admin-heading h1 { font-size:24px; }
+ .admin-stats { gap:9px; }
+ .admin-stat { padding:13px; }
+ .admin-stat strong { font-size:23px; }
+}
+
+/* Mobile responsive */
+@media (max-width: 800px) {
+    .menu-btn {
+        display: block;
+    }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: white;
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .nav-links.show {
+        display: flex;
+    }
+
+    .hero-content {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .booking {
+        width: 100%;
+    }
+
+    .event-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .about-content {
+        grid-template-columns: 1fr;
+    }
+
+    .features {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 500px) {
+    .event-grid,
+    .review-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero h1 {
+        font-size: 36px;
+    }
+
+    .stats {
+        flex-wrap: wrap;
+    }
+
+    .section-title h2 {
+        font-size: 24px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Navigation -->
+<header>
+<nav>
+    <a href="#home" class="logo">▦ Nex<span>code</span></a>
+
+    <div class="nav-links" id="navLinks">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#contact">Contact</a>
+        <a href="#admin" onclick="openAdmin(event)">⚙ Admin Dashboard</a>
+    </div>
+
+    <a href="#booking" class="btn">Book Now</a>
+    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+</nav>
+</header>
+
+<!-- Home -->
+<section class="hero" id="home">
+<div class="hero-content">
+
+    <div class="hero-text">
+        <div class="small-title">CODE THE FUTURE</div>
+
+        <h1>Create the Impossible <br>with <span>Nexcode</span></h1>
+
+        <p>
+            We create innovative tech experiences, from coding competitions to exciting hackathons. Your ideas, our technology.
+        </p>
+
+        <a href="#services" class="btn">Explore Our Services</a>
+        <a href="#contact" class="outline-btn">Review</a>
+    </div>
+
+    <form class="booking" id="booking">
+        <h3>Book Your Event</h3>
+
+        <input type="text" id="bookName"
+               placeholder="Your Name" required>
+
+        <input type="email" id="bookEmail"
+               placeholder="Email Address" required>
+
+        <select id="eventType" required>
+            <option value="">Select Event Type</option>
+            <option>Hackathon</option>
+            <option>Coding Competition</option>
+            <option>Tech Talk & Workshop</option>
+            <option>Tech Conference & Expo</option>
+            <option>AI & Robotics Showcase</option>
+            <option>Startup Pitch Event</option>
+            <option>Gaming & Esports Tournament</option>
+            <option>Cybersecurity Challenge</option>
+            <option>Debate & Tech Quiz</option>
+        </select>
+
+        <input type="date" id="eventDate" name="dob" required>
+
+        <button class="btn" type="submit">Submit Request</button>
+    </form>
+
+</div>
+</section>
+
+<!-- Services -->
+<section class="section" id="services">
+<div class="container">
+    <div class="section-title">
+        <div class="small-title">OUR SERVICES</div>
+        <h2>Our Event Categories</h2>
+        <p>Explore technology-only events, from hackathons and coding contests to AI showcases and tech conferences.</p>
+    </div>
+
+    <div class="event-grid">
+        <article class="card category-card">
+            <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=900&q=80" alt="Students collaborating at a hackathon">
+            <div class="card-content">
+                <span class="category-tag">BUILD & INNOVATE</span>
+                <h3>Hackathon</h3>
+                <p>Bring teams together to build creative apps, websites, and prototypes around a real-world problem.</p>
+                <ul>
+                    <li>Team registration and problem statements</li>
+                    <li>Mentor support and project reviews</li>
+                    <li>Final demos and winner awards</li>
+                    <li>Participation certificates</li>
+                </ul>
+                <div class="category-price">Planning fee from <strong>₹499</strong></div>
+                <a class="category-link" href="#booking" onclick="selectEvent('Hackathon')">Book this event →</a>
+            </div>
+        </article>
+
+        <article class="card category-card">
+            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80" alt="Coding competition on computers">
+            <div class="card-content">
+                <span class="category-tag">CODE & COMPETE</span>
+                <h3>Coding Competition</h3>
+                <p>A fun and challenging contest for programmers to solve problems and demonstrate coding skills.</p>
+                <ul>
+                    <li>Beginner and advanced rounds</li>
+                    <li>Timed coding challenges</li>
+                    <li>Leaderboard and judging</li>
+                    <li>Certificates and prizes</li>
+                </ul>
+                <div class="category-price">Planning fee from <strong>₹299</strong></div>
+                <a class="category-link" href="#booking" onclick="selectEvent('Coding Competition')">Book this event →</a>
+            </div>
+        </article>
+
+        <article class="card category-card">
+            <img src="https://images.unsplash.com/photo-1544531586-fde5298cdd40?auto=format&fit=crop&w=900&q=80" alt="Speaker presenting at a technology workshop">
+            <div class="card-content">
+                <span class="category-tag">LEARN & CONNECT</span>
+                <h3>Tech Talk & Workshop</h3>
+                <p>Interactive sessions where students and professionals explore new tools, ideas, and technologies.</p>
+                <ul>
+                    <li>Guest speakers and expert sessions</li>
+                    <li>Hands-on learning activities</li>
+                    <li>Q&amp;A and networking time</li>
+                    <li>Digital participation certificates</li>
+                </ul>
+                <div class="category-price">Planning fee from <strong>₹199</strong></div>
+                <a class="category-link" href="#booking" onclick="selectEvent('Tech Talk & Workshop')">Book this event →</a>
+            </div>
+        </article>
+
+        <article class="card category-card">
+            <img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=900&q=80" alt="Technology conference audience">
+            <div class="card-content">
+                <span class="category-tag">IDEAS & NETWORKING</span>
+                <h3>Tech Conference & Expo</h3>
+                <p>A larger gathering for innovators to share ideas, present projects, and discover emerging technology.</p>
+                <ul>
+                    <li>Keynote and panel discussions</li>
+                    <li>Project and product showcase booths</li>
+                    <li>Networking sessions</li>
+                    <li>Event schedule and attendee support</li>
+                </ul>
+                <div class="category-price">Planning fee from <strong>₹499</strong></div>
+                <a class="category-link" href="#booking" onclick="selectEvent('Tech Conference & Expo')">Book this event →</a>
+            </div>
+        </article>
+
+        <article class="card category-card">
+            <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=900&q=80" alt="Robotics and artificial intelligence display">
+            <div class="card-content">
+                <span class="category-tag">FUTURE TECHNOLOGY</span>
+                <h3>AI & Robotics Showcase</h3>
+                <p>Present robotics builds, AI concepts, and student innovations through live demonstrations.</p>
+                <ul>
+                    <li>Demo stations and project displays</li>
+                    <li>Prototype presentation slots</li>
+                    <li>Guest feedback and judging</li>
+                    <li>Innovation awards</li>
+                </ul>
+                <div class="category-price">Planning fee from <strong>₹399</strong></div>
+                <a class="category-link" href="#booking" onclick="selectEvent('AI & Robotics Showcase')">Book this event →</a>
+            </div>
+        </article>
+
+        <article class="card category-card">
+            <img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?auto=format&fit=crop&w=900&q=80" alt="Startup team pitching an idea">
+            <div class="card-content">
+                <span class="category-tag">STARTUP & IDEAS</span>
+                <h3>Startup Pitch Event</h3>
+                <p>Give aspiring founders a platform to pitch ideas, explain solutions, and receive constructive feedback.</p>
+                <ul>
+                    <li>Pitch presentation slots</li>
+                    <li>Panel of reviewers</li>
+                    <li>Feedback and Q&amp;A</li>
+                    <li>Pitch certificates</li>
+                </ul>
+                <div class="category-price">Planning fee from <strong>₹299</strong></div>
+                <a class="category-link" href="#booking" onclick="selectEvent('Startup Pitch Event')">Book this event →</a>
+            </div>
+        </article>
+
+        <article class="card category-card">
+            <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=900&q=80" alt="Gaming and esports competition">
+            <div class="card-content">
+                <span class="category-tag">PLAY & COMPETE</span>
+                <h3>Gaming & Esports Tournament</h3>
+                <p>Host a friendly gaming tournament with organised brackets, fair-play rules, and live score updates.</p>
+                <ul>
+                    <li>Team or individual brackets</li>
+                    <li>Match schedule and score tracking</li>
+                    <li>Fair-play guidelines</li>
+                    <li>Finals and winner recognition</li>
+                </ul>
+                <div class="category-price">Planning fee from <strong>₹399</strong></div>
+                <a class="category-link" href="#booking" onclick="selectEvent('Gaming & Esports Tournament')">Book this event →</a>
+            </div>
+        </article>
+
+        <article class="card category-card">
+            <img src="https://images.unsplash.com/photo-1510511459019-5dda7724fd87?auto=format&fit=crop&w=900&q=80" alt="Cybersecurity challenge on a laptop">
+            <div class="card-content">
+                <span class="category-tag">THINK & DEFEND</span>
+                <h3>Cybersecurity Challenge</h3>
+                <p>A legal, supervised, puzzle-based event covering digital safety and cybersecurity awareness.</p>
+                <ul>
+                    <li>Safe, sandboxed puzzle challenges</li>
+                    <li>Digital safety quiz rounds</li>
+                    <li>Team leaderboard</li>
+                    <li>Learning-focused awards</li>
+                </ul>
+                <div class="category-price">Planning fee from <strong>₹299</strong></div>
+                <a class="category-link" href="#booking" onclick="selectEvent('Cybersecurity Challenge')">Book this event →</a>
+            </div>
+        </article>
+
+        <article class="card category-card">
+            <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=900&q=80" alt="Students taking part in a quiz event">
+            <div class="card-content">
+                <span class="category-tag">QUIZ & DISCUSS</span>
+                <h3>Debate & Tech Quiz</h3>
+                <p>Bring curious minds together for technology trivia, thoughtful discussions, and team-based rounds.</p>
+                <ul>
+                    <li>Multiple quiz rounds</li>
+                    <li>Technology debate topics</li>
+                    <li>Team scoring and audience round</li>
+                    <li>Certificates for participants</li>
+                </ul>
+                <div class="category-price">Planning fee from <strong>₹199</strong></div>
+                <a class="category-link" href="#booking" onclick="selectEvent('Debate & Tech Quiz')">Book this event →</a>
+            </div>
+        </article>
+    </div>
+</div>
+</section>
+<!-- About -->
+<section class="section about" id="about">
+<div class="container about-content">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhJn4NConabr_mLQ1pn8KWwlWtc8WnzgGcYyly8yNwyw&s=10" alt="Event decoration">
+
+    <div>
+        <div class="small-title">ABOUT US</div>
+        <h2>Innovate Beyond Limits. Code the Future with NexCode.</h2>
+
+        <p>
+            NexCode is a technology-driven event management company dedicated to creating unforgettable tech experiences. 
+            From coding competitions and hackathons to tech conferences and innovation events,
+             our team brings every idea to life with creativity, innovation, and expertise.
+        </p>
+
+        <div class="stats">
+            <div><strong>500+</strong><small>Events Hosted</small></div>
+            <div><strong>200+</strong><small>Happy Clients</small></div>
+            <div><strong>5★</strong><small>Client Rating</small></div>
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- Why Choose Us -->
+<section class="section">
+<div class="container">
+    <div class="section-title">
+        <h2>Why Choose Us?</h2>
+        <p>We combine technology, creativity, and innovation to deliver extraordinary tech experiences.</p>
+    </div>
+
+    <div class="features">
+        <div>
+            <div class="feature-icon">✓</div>
+            <h3>Smart Event Planning</h3>
+            <p> Customized tech events designed around your ideas.</p>
+        </div>
+
+        <div>
+            <div class="feature-icon">♧</div>
+            <h3>Expert Tech Team</h3>
+            <p>Skilled professionals passionate about technology and innovation.</p>
+        </div>
+
+        <div>
+            <div class="feature-icon">◇</div>
+            <h3>Innovative Solutions</h3>
+            <p>Creative ideas powered by the latest technology.</p>
+        </div>
+
+        <div>
+            <div class="feature-icon">◷</div>
+            <h3>On-Time Execution</h3>
+            <p>Seamless event management with precision and efficiency.</p>
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- Gallery -->
+<section class="section" id="gallery" style="background:#fffaf5">
+<div class="container">
+    <div class="section-title">
+        <h2>Our Gallery</h2>
+        <p>A glimpse into our world of innovation, technology, and unforgettable tech experiences.</p>
+    </div>
+
+    <div class="event-grid">
+        <div class="card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpqgA7fSwqwsHp74br6eKrHqVOLfkQBTx03j4SgqCNdg&s=10" alt="Tech Talk event">
+        </div>
+        <div class="card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-eEd7QoU7GNnozmmVqmN7jchRn2MNRyhtTgvYZfMjhA&s=10" alt="Debate & quiz event">
+        </div>
+        <div class="card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpyGRuybPEhh8PTs258dOBZV4hLJzWOeEH2qE8rfSReg&s=10" alt="Hackathon event">
+        </div>
+        <div class="card">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnVGroVzQEiT-TvGFAqNF-bmdI1mUnfSz65NxUU0bUcA&s=10" alt="Conference gallery">
+        </div>
+    </div>
+</div>
+</section>  
+
+<!-- Testimonials -->
+<section class="section testimonials" id="testimonials">
+<div class="container">
+    <div class="section-title">
+        <h2>What Our Clients Say</h2>
+        <p>Real stories, happy moments.</p>
+    </div>
+
+    <div class="review-grid">
+        <div class="review">
+            <p>"NexCode made our tech event truly unforgettable. The organization, creativity,
+                 and execution were absolutely outstanding!"</p>
+            <h4>— Priya & Arjun ★★★★★</h4>
+        </div>
+
+        <div class="review">
+            <p>"Professional, innovative, and incredibly well-organized. NexCode delivers outstanding tech experiences.
+                 Highly recommended!"</p>
+            <h4>— Rohan Mehta ★★★★★</h4>
+        </div>
+
+        <div class="review">
+            <p>"Our corporate tech event was a huge success! NexCode's innovative ideas, seamless planning, 
+                and dedicated team made the experience outstanding."</p>
+            <h4>— Neha Sharma ★★★★★</h4>
+        </div>
+    </div>
+</div>
+</section>
+
+<!-- Contact -->
+<section class="section" id="contact">
+<div class="container contact-grid">
+
+    <div class="contact-info">
+        <div class="small-title">GET IN TOUCH</div>
+        <h2>Turn your ideas into unforgettable tech experiences with NexCode.</h2>
+        <p>+91 98765 43210</p>
+        <p>nexcode@gmail.com</p>
+        <p>Kolkata, India</p>
+        <p>Your Feedback, Our Improvement!</p>
+    </div>
+
+    <form class="contact-form" id="contactForm">
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+
+        <select required>
+            <option value="">Select Event Type</option>
+            <option>Hackathon</option>
+            <option>Coding Competition</option>
+            <option>Tech Talk & Workshop</option>
+            <option>Tech Conference & Expo</option>
+            <option>AI & Robotics Showcase</option>
+            <option>Startup Pitch Event</option>
+            <option>Gaming & Esports Tournament</option>
+            <option>Cybersecurity Challenge</option>
+            <option>Debate & Tech Quiz</option>
+        </select>
+
+        <textarea placeholder="Tell us about your event" required></textarea>
+        <button class="btn" type="submit">Send Message</button>
+    </form>
+
+</div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="logo">▦ Nex<span>code</span></div>
+    <p>Making Every Tech Moment Unforgettable.</p>
+    <p>© <span id="year"></span> Nexcode. All rights reserved.</p>
+</footer>
+
+<!-- ================= ADMIN DASHBOARD ================= -->
+<section id="adminDashboard" aria-label="Nexcode admin dashboard">
+  <div class="admin-wrap">
+    <div class="admin-top">
+      <div class="admin-brand">▦ Nex<span>code</span> <small style="font-size:12px;color:#8792a1;font-weight:normal"> / ADMIN</small></div>
+      <div class="admin-top-actions">
+        <button class="admin-btn secondary" onclick="downloadAdminBookings()">Export Bookings</button>
+        <button class="admin-btn" onclick="closeAdmin()">← Back to Website</button>
+      </div>
+    </div>
+
+    <div class="admin-heading">
+      <h1>Dashboard Overview</h1>
+      <p>Manage Nexcode event requests and customer enquiries.</p>
+    </div>
+
+    <div class="admin-stats">
+      <div class="admin-stat"><span>Total Bookings</span><strong id="adminTotalBookings">0</strong></div>
+      <div class="admin-stat"><span>Pending Requests</span><strong id="adminPending">0</strong></div>
+      <div class="admin-stat"><span>Confirmed Events</span><strong id="adminConfirmed">0</strong></div>
+      <div class="admin-stat"><span>Contact Messages</span><strong id="adminMessages">0</strong></div>
+    </div>
+
+    <div class="admin-grid">
+      <div class="admin-panel">
+        <h2>Manage Bookings</h2>
+        <div class="admin-tools">
+          <input id="adminBookingSearch" type="search" placeholder="Search name, email or event" oninput="renderAdmin()">
+          <select id="adminStatusFilter" onchange="renderAdmin()">
+            <option value="All">All statuses</option>
+            <option value="Pending">Pending</option>
+            <option value="Confirmed">Confirmed</option>
+            <option value="Cancelled">Cancelled</option>
+          </select>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead><tr><th>CLIENT</th><th>EMAIL</th><th>EVENT</th><th>DATE</th><th>STATUS</th></tr></thead>
+            <tbody id="adminBookingRows"></tbody>
+          </table>
+        </div>
+        <p class="admin-note">Bookings submitted through the website on this browser will appear here. Status changes are saved in this browser.</p>
+      </div>
+
+      <div class="admin-panel">
+        <h2>Recent Activity</h2>
+        <div id="adminActivity" class="admin-activity">No activity yet.</div>
+      </div>
+    </div>
+
+    <div class="admin-panel">
+      <h2>Customer Messages</h2>
+      <div class="admin-table-wrap">
+        <table class="admin-table">
+          <thead><tr><th>NAME</th><th>EMAIL</th><th>EVENT</th><th>MESSAGE</th><th>RECEIVED</th></tr></thead>
+          <tbody id="adminMessageRows"></tbody>
+        </table>
+      </div>
+      <p class="admin-note">This dashboard is a front-end prototype. Data is stored in localStorage on this device only; it is not a secure, multi-user admin system.</p>
+    </div>
+  </div>
+</section>
+
+<script>
+// Mobile navigation
+function toggleMenu() {
+    document.getElementById("navLinks").classList.toggle("show");
+}
+
+document.querySelectorAll(".nav-links a").forEach(link => {
+    link.addEventListener("click", () => {
+        document.getElementById("navLinks").classList.remove("show");
+    });
+});
+
+// Select event type from category
+function selectEvent(type) {
+    document.getElementById("eventType").value = type;
+}
+
+// Save booking requests in this browser so the admin dashboard can display them.
+function readStored(key) {
+    try { return JSON.parse(localStorage.getItem(key) || "[]"); }
+    catch (error) { return []; }
+}
+function saveStored(key, data) {
+    localStorage.setItem(key, JSON.stringify(data));
+}
+document.getElementById("booking").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const booking = {
+        id: Date.now(),
+        name: document.getElementById("bookName").value.trim(),
+        email: document.getElementById("bookEmail").value.trim(),
+        event: document.getElementById("eventType").value,
+        date: document.getElementById("eventDate").value,
+        status: "Pending",
+        createdAt: new Date().toLocaleString()
+    };
+    const bookings = readStored("nexcodeBookings");
+    bookings.unshift(booking);
+    saveStored("nexcodeBookings", bookings);
+    alert("Thank you, " + booking.name + "! Your booking request has been received.");
+    this.reset();
+});
+
+// Save contact enquiries for the admin dashboard.
+document.getElementById("contactForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const fields = this.querySelectorAll("input, select, textarea");
+    const messages = readStored("nexcodeMessages");
+    messages.unshift({
+        name: fields[0].value.trim(),
+        email: fields[1].value.trim(),
+        event: fields[2].value,
+        message: fields[3].value.trim(),
+        receivedAt: new Date().toLocaleString()
+    });
+    saveStored("nexcodeMessages", messages);
+    alert("Thank you! Your message has been submitted.");
+    this.reset();
+});
+
+
+// Admin dashboard navigation and rendering.
+function openAdmin(event) {
+    if (event) event.preventDefault();
+    document.body.classList.add("admin-mode");
+    history.replaceState(null, "", "#admin");
+    renderAdmin();
+    window.scrollTo(0, 0);
+}
+function closeAdmin() {
+    document.body.classList.remove("admin-mode");
+    history.replaceState(null, "", window.location.pathname + window.location.search);
+    window.scrollTo(0, 0);
+}
+function escapeAdmin(value) {
+    return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
+    }[char]));
+}
+function renderAdmin() {
+    const bookings = readStored("nexcodeBookings");
+    const messages = readStored("nexcodeMessages");
+    const pending = bookings.filter(item => item.status === "Pending").length;
+    const confirmed = bookings.filter(item => item.status === "Confirmed").length;
+    document.getElementById("adminTotalBookings").textContent = bookings.length;
+    document.getElementById("adminPending").textContent = pending;
+    document.getElementById("adminConfirmed").textContent = confirmed;
+    document.getElementById("adminMessages").textContent = messages.length;
+
+    const query = (document.getElementById("adminBookingSearch")?.value || "").toLowerCase();
+    const filter = document.getElementById("adminStatusFilter")?.value || "All";
+    const filtered = bookings.filter(item =>
+        (filter === "All" || item.status === filter) &&
+        [item.name, item.email, item.event].join(" ").toLowerCase().includes(query)
+    );
+    const bookingRows = document.getElementById("adminBookingRows");
+    bookingRows.innerHTML = filtered.length ? filtered.map(item => {
+        const status = ["Pending","Confirmed","Cancelled"].includes(item.status) ? item.status : "Pending";
+        return `<tr>
+            <td><strong>${escapeAdmin(item.name)}</strong></td>
+            <td>${escapeAdmin(item.email)}</td>
+            <td>${escapeAdmin(item.event)}</td>
+            <td>${escapeAdmin(item.date)}</td>
+            <td><select aria-label="Update booking status" onchange="updateAdminBooking(${Number(item.id)}, this.value)">
+                <option ${status==="Pending"?"selected":""}>Pending</option>
+                <option ${status==="Confirmed"?"selected":""}>Confirmed</option>
+                <option ${status==="Cancelled"?"selected":""}>Cancelled</option>
+            </select></td>
+        </tr>`;
+    }).join("") : '<tr><td colspan="5" class="admin-empty">No bookings found yet. Submit a test booking on the website.</td></tr>';
+
+    const messageRows = document.getElementById("adminMessageRows");
+    messageRows.innerHTML = messages.length ? messages.map(item => `<tr>
+        <td><strong>${escapeAdmin(item.name)}</strong></td>
+        <td>${escapeAdmin(item.email)}</td>
+        <td>${escapeAdmin(item.event)}</td>
+        <td>${escapeAdmin(item.message)}</td>
+        <td>${escapeAdmin(item.receivedAt)}</td>
+    </tr>`).join("") : '<tr><td colspan="5" class="admin-empty">No customer messages yet.</td></tr>';
+
+    const activity = document.getElementById("adminActivity");
+    const latestBooking = bookings[0];
+    const latestMessage = messages[0];
+    const activityItems = [];
+    if (latestBooking) activityItems.push(`New booking: ${escapeAdmin(latestBooking.name)} — ${escapeAdmin(latestBooking.event)} (${escapeAdmin(latestBooking.createdAt || "recently")})`);
+    if (latestMessage) activityItems.push(`New enquiry: ${escapeAdmin(latestMessage.name)} (${escapeAdmin(latestMessage.receivedAt || "recently")})`);
+    activity.innerHTML = activityItems.length ? activityItems.map(text => `<p>• ${text}</p>`).join("") : "No activity yet. New website submissions will appear here.";
+}
+function updateAdminBooking(id, status) {
+    const bookings = readStored("nexcodeBookings");
+    const item = bookings.find(booking => Number(booking.id) === Number(id));
+    if (!item) return;
+    item.status = status;
+    saveStored("nexcodeBookings", bookings);
+    renderAdmin();
+}
+function downloadAdminBookings() {
+    const bookings = readStored("nexcodeBookings");
+    const rows = [["Name","Email","Event","Date","Status"], ...bookings.map(item =>
+        [item.name,item.email,item.event,item.date,item.status]
+    )];
+    const csv = rows.map(row => row.map(value => `"${String(value ?? "").replace(/"/g,'""')}"`).join(",")).join("\n");
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(new Blob([csv], {type:"text/csv"}));
+    link.download = "nexcode-bookings.csv";
+    link.click();
+    URL.revokeObjectURL(link.href);
+}
+if (window.location.hash === "#admin") openAdmin();
+
+// Footer year
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
